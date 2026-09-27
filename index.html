@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Hipérbola</title>
+  <meta name="description" content="Página educativa e interactiva sobre la hipérbola: teoría, laboratorio gráfico, aplicaciones y minijuego.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-stars" aria-hidden="true"></div>
+
+  <header class="navbar">
+    <a class="brand" href="#inicio"><span class="brand-icon">)(</span> Hipérbola</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#inicio">Inicio</a>
+      <a href="#concepto">Concepto</a>
+      <a href="#laboratorio">Laboratorio</a>
+      <a href="#aplicaciones">Aplicaciones</a>
+      <a href="#juego">Juego</a>
+    </nav>
+  </header>
+
+  <main>  
+    <section id="inicio" class="hero">
+      <div class="hero-text">
+        <p class="tag">Secciones cónicas · Parte 3</p>
+        <h1>La <span class="grad">Hipérbola</span></h1>
+        <p class="lead">
+          Es la curva que aparece cuando <strong>interceptamos un cono de forma vertical</strong> con un 
+          plano que atraviesa ambos lados de este. Su aspecto es el de <strong> dos parabolas horizontales</strong>
+          reflejada la una a la otra, y tiene <strong>asintotas</strong> que estas nunca tocan.
+        </p>
+        <div class="hero-actions">
+          <a href="#laboratorio" class="btn primary">Entrar al laboratorio</a>
+          <a href="#juego" class="btn ghost">Jugar Arregla la hipérbola</a>
+        </div>
+        <div class="hero-stats">
+          <div><span><strong>Tiene:</strong></span></div>
+          <div><strong>2</strong><span>ramas</span></div>
+          <div><strong>2</strong><span>focos</span></div>
+          
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg id="heroSvg" viewBox="-10 -8 20 16" role="img" aria-label="Animación de una hipérbola con sus asíntotas y focos"></svg>
+      </div>
+    </section>
+
+    <section id="concepto" class="section">
+      <div class="section-head reveal">
+        <p class="tag">Teoría</p>
+        <h2>¿Qué es una hipérbola?</h2>
+        <p class="section-sub">
+          Asi como una <strong>circunferencia</strong> son todos los puntos a la misma distancia de un centro, la 
+          <strong>hipérbola</strong> son todos los puntos que <strong>separan de dos focos</strong> (F1 y F2) una distancia igual a 
+          <strong>2a</strong>.
+      </div>
+
+      <div class="concept-grid">
+        <article class="panel concept-card reveal">
+          <div class="concept-icon">📐</div>
+          <h3>Definición</h3>
+          <p class="formula">|PF₁ − PF₂| = 2a</p>
+          <p>En cualquier punto de la curva, al restar sus distancias a ambos focos siempre es un mismo valor, 2a.</p>
+        </article>
+
+        <article class="panel concept-card reveal">
+          <div class="concept-icon">↔</div>
+          <h3>Horizontal</h3>
+          <p class="formula">
+            <span class="frac"><span>(x − h)²</span><span>a²</span></span> −
+            <span class="frac"><span>(y − k)²</span><span>b²</span></span> = 1
+          </p>
+          <p>Se abre a izquierda y derecha. Focos en (h ± c, k).</p>
+        </article>
+
+        <article class="panel concept-card reveal">
+          <div class="concept-icon">↕</div>
+          <h3>Vertical</h3>
+          <p class="formula">
+            <span class="frac"><span>(y − k)²</span><span>a²</span></span> −
+            <span class="frac"><span>(x − h)²</span><span>b²</span></span> = 1
+          </p>
+          <p>Se abre hacia arriba y abajo. Focos en (h, k ± c).</p>
+        </article>
+
+        <article class="panel concept-card reveal">
+          <div class="concept-icon">🔑</div>
+          <h3>Relaciones clave</h3>
+          <ul class="formula-list">
+            <li>c² = a² + b²</li>
+            <li>e = c / a &gt; 1</li>
+            <li>Lado recto = 2b² / a</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="panel elements reveal">
+        <h3>Elementos de la hipérbola</h3>
+        <div class="chips">
+          <span class="chip"><i style="background:#ffffff"></i>Centro C(h, k)</span>
+          <span class="chip"><i style="background:var(--yellow)"></i>Vértices (a unidades del centro)</span>
+          <span class="chip"><i style="background:var(--pink)"></i>Focos (c unidades del centro)</span>
+          <span class="chip"><i style="background:var(--neon)"></i>Eje transverso = 2a</span>
+          <span class="chip"><i style="background:var(--violet)"></i>Eje conjugado = 2b</span>
+          <span class="chip"><i class="dashed"></i>Asíntotas</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="laboratorio" class="section">
+      <div class="section-head reveal">
+        <p class="tag">Experimenta</p>
+        <h2>Laboratorio</h2>
+        <p class="section-sub">Modifica los parámetros y mire cómo la hipérbola, sus focos, vértices y asíntotas cambian en tiempo real.</p>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Controles -->
+        <aside class="panel controls reveal">
+          <h3 class="panel-title">⚙️ Parámetros</h3>
+
+          <div class="orient-toggle" data-orient-group="lab" role="group" aria-label="Orientación">
+            <button class="seg active" data-orient="h">↔ Horizontal</button>
+            <button class="seg" data-orient="v">↕ Vertical</button>
+          </div>
+
+          <div class="control">
+            <label for="a-range"><span class="var">a</span> Semieje transverso</label>
+            <div class="control-row">
+              <input type="range" id="a-range" min="0.5" max="8" step="0.5" value="3">
+              <input type="number" id="a-num" min="0.5" max="8" step="0.5" value="3" aria-label="Valor de a">
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="b-range"><span class="var">b</span> Semieje conjugado</label>
+            <div class="control-row">
+              <input type="range" id="b-range" min="0.5" max="8" step="0.5" value="2">
+              <input type="number" id="b-num" min="0.5" max="8" step="0.5" value="2" aria-label="Valor de b">
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="h-range"><span class="var">h</span> Centro (coordenada x)</label>
+            <div class="control-row">
+              <input type="range" id="h-range" min="-6" max="6" step="0.5" value="0">
+              <input type="number" id="h-num" min="-6" max="6" step="0.5" value="0" aria-label="Valor de h">
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="k-range"><span class="var">k</span> Centro (coordenada y)</label>
+            <div class="control-row">
+              <input type="range" id="k-range" min="-6" max="6" step="0.5" value="0">
+              <input type="number" id="k-num" min="-6" max="6" step="0.5" value="0" aria-label="Valor de k">
+            </div>
+          </div>
+
+          <div class="toggles">
+            <label class="switch"><input type="checkbox" id="showAsym" checked><span></span>Asíntotas</label>
+            <label class="switch"><input type="checkbox" id="showRect" checked><span></span>Rectángulo y círculo c</label>
+            <label class="switch"><input type="checkbox" id="showFoci" checked><span></span>Focos</label>
+            <label class="switch"><input type="checkbox" id="showVert" checked><span></span>Vértices</label>
+            <label class="switch"><input type="checkbox" id="showFocal"><span></span>Propiedad focal</label>
+          </div>
+
+          <button id="resetLab" class="btn ghost small full">↺ Restablecer</button>
+        </aside>
+
+        <!-- Gráfica -->
+        <div class="panel canvas-wrap reveal">
+          <canvas id="labCanvas" data-key="lab"></canvas>
+          <div class="coord-badge" id="labCoords">Mueve el cursor sobre el plano</div>
+          <div class="legend">
+            <span><i style="background:var(--neon)"></i>Curva</span>
+            <span><i class="dashed"></i>Asíntotas</span>
+            <span><i style="background:var(--pink)"></i>Focos</span>
+            <span><i style="background:var(--yellow)"></i>Vértices</span>
+          </div>
+        </div>
+
+        <!-- Paneles informativos -->
+        <div class="info-grid">
+          <div class="panel info-card wide reveal">
+            <span class="info-label">Ecuación canónica</span>
+            <div class="info-value eq" id="eqCanon"></div>
+            <span class="info-note" id="eqType"></span>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="info-label">Distancia focal (c)</span>
+            <div class="info-value" id="valC"></div>
+            <span class="info-note">c² = a² + b²</span>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="info-label">Excentricidad (e)</span>
+            <div class="info-value" id="valE"></div>
+            <div class="meter"><div id="eMeter"></div></div>
+            <span class="info-note" id="eNote"></span>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="info-label">Asíntotas</span>
+            <div class="info-value" id="valAsym"></div>
+            <span class="info-note" id="asymNote"></span>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="info-label">Focos</span>
+            <div class="info-value" id="valFoci"></div>
+            <span class="info-note" id="fociNote"></span>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="info-label">Vértices</span>
+            <div class="info-value" id="valVert"></div>
+          </div>
+          <div class="panel info-card reveal">
+            <span class="info-label">Ejes y lado recto</span>
+            <div class="info-value small-val" id="valAxes"></div>
+          </div>
+          <div class="panel info-card wide reveal">
+            <span class="info-label">Propiedad focal |PF₁ − PF₂| = 2a</span>
+            <div class="info-value small-val" id="focalBox">Activar Propiedad focal para poder ver un punto P recorrer la curva.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="aplicaciones" class="section">
+      <div class="section-head reveal">
+        <p class="tag">Mundo real</p>
+        <h2>¿Dónde aparece la hipérbola?</h2>
+      </div>
+
+      <div class="apps-grid">
+        <button class="flip-card reveal" aria-label="Arquitectura">
+          <div class="flip-inner">
+            <div class="face front">
+              <div class="app-icon">🏛️</div>
+              <h3>Arquitectura</h3>
+              <p>Torres de enfriamiento, la Catedral de Brasilia y la Torre del Puerto de Kobe.</p>
+              <span class="flip-hint">Toca para ver más ↻</span>
+            </div>
+            <div class="face back">
+              <h3>Hiperboloides</h3>
+              <p>Al girar una hipérbola alrededor de su eje se obtiene un <strong>hiperboloide</strong>. Aunque es curvo, se puede construir con <strong>vigas rectas</strong> cruzadas, lo que lo hace muy resistente y económico.</p>
+              <span class="math-tag">Superficie de revolución</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="flip-card reveal" aria-label="Astronomía">
+          <div class="flip-inner">
+            <div class="face front">
+              <div class="app-icon">☄️</div>
+              <h3>Astronomía</h3>
+              <p>Cometas y objetos interestelares que visitan el Sistema Solar una sola vez.</p>
+              <span class="flip-hint">Toca para ver más ↻</span>
+            </div>
+            <div class="face back">
+              <h3>Órbitas abiertas</h3>
+              <p>Un cuerpo que llega con velocidad mayor a la de escape del Sol sigue una <strong>trayectoria hiperbólica</strong> con el Sol en un foco. Así pasaron ʻOumuamua (2017) y 2I/Borisov (2019): nunca regresarán.</p>
+              <span class="math-tag">e &gt; 1</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="flip-card reveal" aria-label="Navegación LORAN">
+          <div class="flip-inner">
+            <div class="face front">
+              <div class="app-icon">📡</div>
+              <h3>Navegación LORAN</h3>
+              <p>Barcos y aviones que ubicaban su posición con ondas de radio.</p>
+              <span class="flip-hint">Toca para ver más ↻</span>
+            </div>
+            <div class="face back">
+              <h3>Diferencia de tiempos</h3>
+              <p>Dos estaciones emiten señales a la vez. El receptor mide cuánto tarda cada una: esa <strong>diferencia de distancias es constante</strong>, así que el barco está sobre una hipérbola con focos en las estaciones. Con otro par de estaciones, el cruce da la posición.</p>
+              <span class="math-tag">|d₁ − d₂| = 2a</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="flip-card reveal" aria-label="Lámpara en la pared">
+          <div class="flip-inner">
+            <div class="face front">
+              <div class="app-icon">💡</div>
+              <h3>Lámpara en la pared</h3>
+              <p>La luz de una lámpara con pantalla dibuja dos curvas sobre la pared.</p>
+              <span class="flip-hint">Toca para ver más ↻</span>
+            </div>
+            <div class="face back">
+              <h3>Un cono cortado</h3>
+              <p>La pantalla cilíndrica lanza un <strong>cono de luz</strong> hacia arriba y otro hacia abajo. La pared, paralela al eje de la lámpara, corta ambos conos: ¡las dos ramas de una hipérbola!</p>
+              <span class="math-tag">Sección cónica</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="flip-card reveal" aria-label="Telescopios">
+          <div class="flip-inner">
+            <div class="face front">
+              <div class="app-icon">🔭</div>
+              <h3>Telescopios</h3>
+              <p>Espejos hiperbólicos en telescopios como el Hubble.</p>
+              <span class="flip-hint">Toca para ver más ↻</span>
+            </div>
+            <div class="face back">
+              <h3>Propiedad reflectora</h3>
+              <p>Un rayo dirigido hacia un foco de un espejo hiperbólico se refleja hacia el <strong>otro foco</strong>. Los telescopios Cassegrain usan un espejo secundario hiperbólico para enfocar la luz en un tubo más corto.</p>
+              <span class="math-tag">Foco → Foco</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="flip-card reveal" aria-label="Estallido sónico">
+          <div class="flip-inner">
+            <div class="face front">
+              <div class="app-icon">✈️</div>
+              <h3>Estallido sónico</h3>
+              <p>Un avión supersónico «dibuja» una hipérbola en el suelo.</p>
+              <span class="flip-hint">Toca para ver más ↻</span>
+            </div>
+            <div class="face back">
+              <h3>Cono de Mach</h3>
+              <p>Al superar la velocidad del sonido, el avión genera una onda en forma de <strong>cono</strong>. Su intersección con el suelo es una hipérbola: todas las personas sobre ella oyen el estampido al mismo tiempo.</p>
+              <span class="math-tag">Cono ∩ plano</span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= 4. MINIJUEGO ================= -->
+    <section id="juego" class="section">
+      <div class="section-head reveal">
+        <p class="tag">Minijuego</p>
+        <h2>🎯Arregla la hipérbola</h2>
+        <p class="section-sub">Cambia las variables de tu hipérbola para cumplir los objetivos de los retos. a es la distancia 
+          de los dos vertices o extremos de la hipérbola hacia el centro, b es la amplitud de las curvas que mueve los focos 
+          más lejos del centro, h es el desplazamiento horizontal desde el centro, y k es el desplazamiento vertical 
+          también desde este
+        </p>
+      </div>
+
+      <div class="game-grid">
+        <div class="panel game-side reveal">
+          <div class="scoreboard">
+            <div><span>Puntaje</span><strong id="score">0</strong></div>
+            <div><span>Racha</span><strong id="streak">0</strong></div>
+            <div><span>Reto</span><strong id="round">1</strong></div>
+          </div>
+
+          <div class="challenge">
+            <h3 id="chTitle">Cargando reto…</h3>
+            <p id="chText"></p>
+            <p class="hint-text" id="hintText"></p>
+          </div>
+
+          <div class="orient-toggle" data-orient-group="game" role="group" aria-label="Orientación del juego">
+            <button class="seg active" data-orient="h">↔ Horizontal</button>
+            <button class="seg" data-orient="v">↕ Vertical</button>
+          </div>
+
+          <div class="control">
+            <label for="g-a-range"><span class="var">a</span></label>
+            <div class="control-row">
+              <input type="range" id="g-a-range" min="0.5" max="6" step="0.5" value="1">
+              <input type="number" id="g-a-num" min="0.5" max="6" step="0.5" value="1" aria-label="a del juego">
+            </div>
+          </div>
+          <div class="control">
+            <label for="g-b-range"><span class="var">b</span></label>
+            <div class="control-row">
+              <input type="range" id="g-b-range" min="0.5" max="6" step="0.5" value="1">
+              <input type="number" id="g-b-num" min="0.5" max="6" step="0.5" value="1" aria-label="b del juego">
+            </div>
+          </div>
+          <div class="control">
+            <label for="g-h-range"><span class="var">h</span></label>
+            <div class="control-row">
+              <input type="range" id="g-h-range" min="-6" max="6" step="0.5" value="0">
+              <input type="number" id="g-h-num" min="-6" max="6" step="0.5" value="0" aria-label="h del juego">
+            </div>
+          </div>
+          <div class="control">
+            <label for="g-k-range"><span class="var">k</span></label>
+            <div class="control-row">
+              <input type="range" id="g-k-range" min="-6" max="6" step="0.5" value="0">
+              <input type="number" id="g-k-num" min="-6" max="6" step="0.5" value="0" aria-label="k del juego">
+            </div>
+          </div>
+
+          <div class="game-actions">
+            <button id="checkBtn" class="btn primary">✔ Comprobar</button>
+            <button id="hintBtn" class="btn ghost">💡 Pista (−30)</button>
+            <button id="nextBtn" class="btn ghost">Nuevo reto →</button>
+          </div>
+
+          <div id="feedback" class="feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="panel canvas-wrap reveal" id="gameWrap">
+          <canvas id="gameCanvas" data-key="game"></canvas>
+          <div class="legend">
+            <span><i style="background:var(--neon)"></i>Tu hipérbola</span>
+            <span><i style="background:var(--pink)"></i>Tus focos</span>
+            <span><i style="background:var(--orange)"></i>Objetivos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>La Hipérbola</strong></p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
