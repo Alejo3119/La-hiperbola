@@ -2,7 +2,9 @@
    El Universo de la Hipérbola — styles.css
    ========================================================= */
 
-/* ---------- Variables ---------- */
+/* ---------- Variables ----------
+   Colores, tipografías y medidas reutilizables. Cambiar una variable actualiza
+   el diseño completo sin tener que buscar el mismo color en muchas reglas. */
 :root {
   --bg: #060818;
   --bg-2: #0b1030;
@@ -34,6 +36,7 @@
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Hace que los enlaces del menú se desplacen suavemente y no queden ocultos bajo la barra fija. */
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 body {
@@ -497,6 +500,7 @@ input[type="number"]:focus { border-color: var(--neon); box-shadow: var(--glow);
 .switch input:checked + span { background: linear-gradient(90deg, var(--neon), var(--violet)); }
 .switch input:checked + span::after { transform: translateX(16px); }
 
+/* Contenedor de cada plano. Evita que las animaciones del canvas se salgan del recuadro. */
 .canvas-wrap { position: relative; padding: 10px; overflow: hidden; }
 .canvas-wrap canvas {
   display: block;
@@ -739,6 +743,7 @@ input[type="number"]:focus { border-color: var(--neon); box-shadow: var(--glow);
 }
 
 /* ---------- Revelado al hacer scroll ---------- */
+/* Las tarjetas comienzan discretamente fuera de vista; JavaScript agrega "visible" al llegar al scroll. */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 
@@ -762,7 +767,8 @@ input[type="number"]:focus { border-color: var(--neon); box-shadow: var(--glow);
   50% { box-shadow: 0 0 0 8px rgba(0, 229, 255, 0); }
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsive ----------
+   Estas reglas reorganizan columnas y menú en pantallas pequeñas, como celulares. */
 @media (max-width: 980px) {
   .hero { grid-template-columns: 1fr; min-height: auto; text-align: center; }
   .lead { margin-left: auto; margin-right: auto; }
@@ -792,6 +798,7 @@ input[type="number"]:focus { border-color: var(--neon); box-shadow: var(--glow);
   .flip-card { height: 340px; }
 }
 
+/* Respeta la preferencia de personas que solicitan menos movimiento en su dispositivo. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   html { scroll-behavior: auto; }

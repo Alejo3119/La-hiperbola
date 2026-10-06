@@ -10,11 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- La apariencia visual se mantiene en un archivo separado para que el contenido
+       (HTML), el diseño (CSS) y la interactividad (JavaScript) sean más fáciles de entender. -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Fondo decorativo: se oculta a lectores de pantalla porque no aporta información. -->
   <div class="bg-stars" aria-hidden="true"></div>
 
+  <!-- Barra de navegación: cada enlace lleva a una sección de esta misma página. -->
   <header class="navbar">
     <a class="brand" href="#inicio"><span class="brand-icon">)(</span> Hipérbola</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
@@ -28,6 +32,7 @@
   </header>
 
   <main>  
+    <!-- Portada. El SVG se genera desde JavaScript para animar la hipérbola. -->
     <section id="inicio" class="hero">
       <div class="hero-text">
         <p class="tag">Secciones cónicas · Parte 3</p>
@@ -53,6 +58,7 @@
       </div>
     </section>
 
+    <!-- Contenido teórico presentado en tarjetas para separar las ideas principales. -->
     <section id="concepto" class="section">
       <div class="section-head reveal">
         <p class="tag">Teoría</p>
@@ -115,6 +121,7 @@
       </div>
     </section>
 
+    <!-- Laboratorio: los controles modifican los valores a, b, h y k y el canvas se redibuja. -->
     <section id="laboratorio" class="section">
       <div class="section-head reveal">
         <p class="tag">Experimenta</p>
@@ -177,6 +184,7 @@
 
         <!-- Gráfica -->
         <div class="panel canvas-wrap reveal">
+          <!-- Canvas: superficie de dibujo donde JavaScript crea el plano y la hipérbola. -->
           <canvas id="labCanvas" data-key="lab"></canvas>
           <div class="coord-badge" id="labCoords">Mueve el cursor sobre el plano</div>
           <div class="legend">
@@ -231,6 +239,7 @@
       </div>
     </section>
 
+    <!-- Ejemplos de uso: las tarjetas pueden girarse para mostrar información adicional. -->
     <section id="aplicaciones" class="section">
       <div class="section-head reveal">
         <p class="tag">Mundo real</p>
@@ -337,6 +346,7 @@
     </section>
 
     <!-- ================= 4. MINIJUEGO ================= -->
+    <!-- Minijuego: propone una figura objetivo y comprueba si los parámetros del usuario coinciden. -->
     <section id="juego" class="section">
       <div class="section-head reveal">
         <p class="tag">Minijuego</p>
@@ -406,6 +416,7 @@
         </div>
 
         <div class="panel canvas-wrap reveal" id="gameWrap">
+          <!-- Segundo canvas independiente, reservado para el reto interactivo. -->
           <canvas id="gameCanvas" data-key="game"></canvas>
           <div class="legend">
             <span><i style="background:var(--neon)"></i>Tu hipérbola</span>
@@ -421,6 +432,7 @@
     <p><strong>La Hipérbola</strong></p>
   </footer>
 
+  <!-- "defer" espera a que el HTML esté listo antes de ejecutar el código interactivo. -->
   <script src="script.js" defer></script>
 </body>
 </html>

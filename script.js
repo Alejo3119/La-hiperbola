@@ -4,6 +4,7 @@
    ========================================================= */
 'use strict';
 
+/* Paleta centralizada: permite que los gráficos, etiquetas y estados del juego mantengan los mismos colores. */
 const COLORS = {
   grid: 'rgba(120, 140, 255, 0.07)',
   gridMajor: 'rgba(120, 140, 255, 0.18)',
@@ -23,6 +24,7 @@ const COLORS = {
 /* =========================================================
    1. UTILIDADES MATEMÁTICAS
    ========================================================= */
+// Atajos para seleccionar elementos del HTML y reutilizarlos en el código.
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => [...document.querySelectorAll(sel)];
 const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
@@ -71,6 +73,8 @@ function radicalOver(N, D) {
 }
 
 /** Todos los elementos geométricos de una hipérbola */
+/* A partir de a, b, h, k y la orientación, calcula el centro, focos, vértices,
+   pendiente de las asíntotas y demás datos necesarios para dibujar y explicar la figura. */
 function geometry(p) {
   const H = p.orient === 'h';
   const c = Math.hypot(p.a, p.b);
@@ -85,6 +89,8 @@ function geometry(p) {
 }
 
 /** Puntos de las dos ramas (forma paramétrica con cosh / sinh) */
+/* Genera muchos puntos de ambas ramas usando funciones hiperbólicas. Al unirlos,
+   el canvas obtiene una curva suave en lugar de una figura formada por pocos segmentos. */
 function branches(p, steps = 360) {
   const T = Math.acosh(Math.max(2, 40 / Math.min(p.a, p.b)));
   const res = [];
@@ -112,6 +118,8 @@ class Plane {
     this.resize();
   }
 
+  /* Ajusta la resolución interna al tamaño visible para que el dibujo se vea nítido
+     tanto en pantallas normales como en pantallas de alta densidad. */
   resize() {
     const r = this.canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -248,6 +256,8 @@ class Plane {
 }
 
 /* Dibuja la hipérbola completa con sus elementos */
+/* Reúne el dibujo completo: curva, centro y, según las opciones activadas,
+   rectángulo auxiliar, asíntotas, focos y vértices. */
 function drawHyperbola(P, p, opts = {}) {
   const g = geometry(p);
 
@@ -285,6 +295,8 @@ function paintFill(range) {
   range.style.setProperty('--fill', `${pct}%`);
 }
 
+/* Mantiene sincronizados el deslizador y la caja numérica. Cada cambio actualiza
+   el estado del laboratorio o juego y pide recalcular la información mostrada. */
 function bindControl(prefix, key, state, onChange) {
   const range = document.getElementById(`${prefix}${key}-range`);
   const input = document.getElementById(`${prefix}${key}-num`);
@@ -346,6 +358,8 @@ function equationHTML(p) {
           <span class="frac"><span>${second}</span><span>${B}</span></span> = 1`;
 }
 
+/* Convierte los parámetros actuales en explicaciones: ecuación, focos, vértices,
+   asíntotas y medidas. Así los números visibles siempre corresponden al gráfico. */
 function updateLabInfo() {
   const p = lab;
   const g = geometry(p);
@@ -405,6 +419,8 @@ function updateLabInfo() {
   });
 }
 
+/* Se ejecuta repetidamente durante la animación. Dibuja el plano y, si se activa,
+   muestra un punto P y sus distancias a los focos para ilustrar la propiedad focal. */
 function drawLab(time) {
   const P = labPlane;
   P.drawGrid();
@@ -492,6 +508,8 @@ let gamePlane;
 const gameSetters = {};
 const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
 
+/* Crea un reto aleatorio. A veces exige pasar por puntos y otras ubicar los focos;
+   en ambos casos se construye una solución matemática válida antes de mostrársela al usuario. */
 function newChallenge() {
   const type = Math.random() < 0.5 ? 'points' : 'focus';
   const orient = Math.random() < 0.5 ? 'h' : 'v';
@@ -549,6 +567,8 @@ function newChallenge() {
   updateScoreboard();
 }
 
+/* Verifica una marca objetivo con una pequeña tolerancia. Esta tolerancia evita que
+   diferencias mínimas por decimales hagan que una respuesta visualmente correcta falle. */
 function markerOk(m, u) {
   const g = geometry(u);
   const tol = 0.15;
@@ -582,6 +602,8 @@ function updateScoreboard() {
   $('#round').textContent = game.round;
 }
 
+/* Revisa todos los objetivos del reto, actualiza los aciertos y calcula puntaje,
+   racha y mensaje de retroalimentación sin cambiar la figura elegida por el usuario. */
 function checkAnswer() {
   if (game.solved) return;
   let okCount = 0;
@@ -743,6 +765,8 @@ function initGame() {
 /* =========================================================
    6. HERO (SVG animado)
    ========================================================= */
+/* Construye el dibujo SVG de la portada. SVG es útil aquí porque conserva nitidez
+   al cambiar de tamaño y permite animar un punto recorriendo una de las ramas. */
 function buildHero() {
   const svg = $('#heroSvg');
   if (!svg) return;
@@ -791,6 +815,8 @@ function buildHero() {
 /* =========================================================
    7. INTERFAZ GENERAL (menú, tarjetas, scroll)
    ========================================================= */
+/* Conecta las interacciones generales de la página: menú móvil, tarjetas giratorias,
+   aparición gradual de contenido y resaltado de la sección activa. */
 function initUI() {
   // Menú móvil
   const toggle = $('#menuToggle'), links = $('#navLinks');
@@ -827,12 +853,16 @@ function initUI() {
    ========================================================= */
 const visible = { lab: true, game: true };
 
+/* Bucle de animación: se solicita el siguiente fotograma y solo se redibujan los
+   canvas que están visibles, para evitar trabajo innecesario. */
 function loop(time) {
   if (visible.lab) drawLab(time);
   if (visible.game) drawGame(time);
   requestAnimationFrame(loop);
 }
 
+/* Punto de inicio: espera a que el documento exista, prepara cada módulo y activa
+   los observadores que detectan visibilidad y cambios de tamaño. */
 document.addEventListener('DOMContentLoaded', () => {
   buildHero();
   initUI();
